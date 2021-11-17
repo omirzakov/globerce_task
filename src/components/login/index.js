@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 
-
+// UI
 import { Button, FormControl, Paper, TextField } from "@material-ui/core";
 import { useStylesLogin } from "src/styles/login";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+
+// LOGIC
 import { connect } from "react-redux";
 import { initLogin } from "src/redux/actions/user";
 
@@ -19,8 +23,12 @@ const Login = ({initLogin, userInfo}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(initLogin(user)) {
+
+        if(initLogin(user) && JSON.parse(localStorage.getItem("isAuth"))) {
+            console.log('here')
             return window.location.replace("/profile");
+        } else {
+            toast.error("Имя пользователя или пароль введены не верно");
         }
     }
 
@@ -33,10 +41,9 @@ const Login = ({initLogin, userInfo}) => {
                 <FormControl className={styles.inputWrapper}>
                     <TextField type="password"  placeholder="Пароль" name="password" value={user.password} onChange={handleChangeUser} />
                 </FormControl>
-                <FormControl className={styles.btn}>
-                    <Button type="submit" variant="contained" color="primary">Войти</Button>
-                </FormControl>
+                <Button variant="contained" color="primary" onClick={handleSubmit}>Войти</Button>
             </form>
+            <ToastContainer />
         </Paper>    
     )
 }

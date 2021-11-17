@@ -1,17 +1,17 @@
-import { PHOTOS_FAILURE, PHOTOS_LOADING, PHOTOS_SUCCESS } from "src/redux/types/photos";
+import { POSTS_FAILURE, POSTS_LOADING, POSTS_SUCCESS } from "src/redux/types/posts";
 
 const initialState = {
     loading: false,
     data: []
 };
 
-export default function photos(state = initialState, action) {
+export default function posts(state = initialState, action) {
     switch (action.type) {
-        case PHOTOS_LOADING:
+        case POSTS_LOADING:
             return { ...state, loading: true };
-        case PHOTOS_SUCCESS:
+        case POSTS_SUCCESS:
             return { ...state, data: action.payload, loading: false }
-        case PHOTOS_FAILURE:
+        case POSTS_FAILURE:
             return { ...state, loading: false, error: action.error }
         default:
             return state;

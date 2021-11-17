@@ -9,7 +9,7 @@ export const loginRequest = (userData) => {
     return new Promise((res, rej) => 
         setTimeout(() => {
             if(userData.name === "Admin" && userData.password === "123456") {
-                res(userData)
+                res(true);
             } else {
                 rej("Такого пользователя нет");
             }
@@ -31,14 +31,12 @@ export const initLogin = (user) => async dispatch => {
             return true;
         }
     } catch(err) {
-        throw new Error(err);
+        console.error("Такого пользователя нет");
     }
 }
 
 export const getUserInfo = () => async dispatch => {
-    dispatch({
-        type: USER_LOADING
-    });
+    dispatch({ type: USER_LOADING });
 
     try {
         const userData = await getUserData();
